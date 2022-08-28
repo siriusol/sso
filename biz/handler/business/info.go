@@ -1,13 +1,15 @@
-package handler
+package business
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/siriusol/sso/biz/mock"
 	"github.com/siriusol/sso/biz/model"
 	"github.com/siriusol/sso/biz/pkg/cookie"
 	"github.com/siriusol/sso/biz/pkg/notation"
-	"log"
-	"net/http"
+	"github.com/siriusol/sso/biz/pkg/session"
 )
 
 func UserInfo(c *gin.Context) {
@@ -37,7 +39,7 @@ func UserInfo(c *gin.Context) {
 	}
 	ctx := c.Copy()
 	remoteSM, _ := mock.GetSession(ctx, sm.SessionKey)
-	if diffSM(&sm, remoteSM) {
+	if session.DiffSM(&sm, remoteSM) {
 		log.Printf("[UserInfo] session diff")
 		c.JSON(http.StatusOK, map[string]interface{}{
 			"msg": "user not login",
