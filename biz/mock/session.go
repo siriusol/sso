@@ -6,14 +6,22 @@ import (
 	"github.com/siriusol/sso/biz/model"
 )
 
+/**
+Session 服务的 Mock 实现，用于根据 session key 操作跨业务线的 session
+*/
+
 var global = map[string]*model.SessionModel{
-	"ping": &model.SessionModel{
-		UserId:    9999,
-		AccountId: "9999_99",
-		LoginMap: map[string]string{
-			"9999": "9999_99",
+	"9_9999_999999_9999_999": &model.SessionModel{
+		UserId:      9,
+		AccountType: 9999,
+		AppId:       999999,
+		AccountId:   "9999_999",
+		LoginMap: map[int32]map[int32]string{
+			9999: {
+				999999: "9999_99",
+			},
 		},
-		SessionKey: "ping",
+		SessionKey: "9_9999_999999_9999_999",
 	},
 }
 
